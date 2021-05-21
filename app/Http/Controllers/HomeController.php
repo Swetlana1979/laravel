@@ -28,7 +28,7 @@ class HomeController extends Controller
 		$comments=dd($comm->find(1)->pluck('description'));
 		
 		//$comments=$comments['description'];
-		$comments='jopa';
+		
 		return view('user')->with('comments', $comments);
     }
 }
