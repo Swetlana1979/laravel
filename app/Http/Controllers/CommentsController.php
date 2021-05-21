@@ -22,10 +22,9 @@ class CommentsController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        $comments = DB::table('comments')->get();
-		print_r($comments);
-
-        //return view('user.index', ['users' => $users]);
+	{
+        $comm = new Comments();
+		$comments=dd($comm->find(1));
+		return view('user')->with('comments', 'no comments');
     }
 }
