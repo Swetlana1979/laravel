@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Comments;
 
 class HomeController extends Controller
 {
@@ -24,11 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $comm = new Comments();
-		$comments=dd($comm->find(1)->pluck('description'));
-		
-		//$comments=$comments['description'];
-		
-		return view('user')->with('comments', $comments);
+        return view('home');
     }
 }

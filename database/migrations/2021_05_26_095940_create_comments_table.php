@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateFlightsTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
-     * Выполнение миграций.
+     * Run the migrations.
      *
      * @return void
      */
@@ -19,17 +19,16 @@ class CreateFlightsTable extends Migration
             $table->integer('user_id');
 			$table->integer('autor_id');
 			$table->integer('parent_id');
-            
         });
     }
 
     /**
-     * Отмена миграций.
+     * Reverse the migrations.
      *
      * @return void
      */
     public function down()
     {
-        Schema::drop('flights');
+        Schema::dropIfExists('comments');
     }
 }
