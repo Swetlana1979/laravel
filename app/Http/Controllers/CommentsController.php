@@ -15,7 +15,7 @@ class CommentsController extends Controller
     public function index($id)
     {
         $comm = new Comments();
-		$comments=dd($comm->find($id));
+		$comments=$comm->find($id);
 		return view('user')->with('comments', $comments);
     }
 
@@ -72,14 +72,14 @@ class CommentsController extends Controller
     public function update(Request $request, $id,$user_id)
     {
         $comm = new Comments();
-		$comments = dd($comm->find($id_user));
+		$comments = $comm->find($id_user);
 		$comment = $comments->find($id);
 		$comment->description=$reg->input('description');
 		$comment->user_id = $reg->input('user_id');
 		$comment->autor_id = $reg->input('autor_id');
 		$comment->parent_id = $reg->input('parent_id');
 		$comment->save();
-		
+		return redirect()->route('home')->with('success', 'Комментарий изменен');
     }
 
     /**

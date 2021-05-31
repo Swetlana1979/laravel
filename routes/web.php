@@ -27,6 +27,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/index', [App\Http\Controllers\CommentsController::class, 'index'])->name('index');
 
 
+
 Route::get('index/{id}','CommentsController@index')->name('user-comments');
+Route::get('index/{id}','CommentsController@update')->name('user-comments-update');
 
 //Route::resource('user', 'CommentsController');
