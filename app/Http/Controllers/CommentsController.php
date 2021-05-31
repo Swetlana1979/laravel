@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Comments;
 class CommentsController extends Controller
 {
-    /**
+    
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         $comm = new Comments();
-		$comments=dd($comm->find(1));
+		$comments=dd($comm->find($id));
 		return view('user')->with('comments', $comments);
     }
 
@@ -68,9 +69,17 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id,$user_id)
     {
-        //
+        $comm = new Comments();
+		$comments = dd($comm->find($id_user));
+		$comment = $comments->find($id);
+		$comment->description=$reg->input('description');
+		$comment->user_id = $reg->input('user_id');
+		$comment->autor_id = $reg->input('autor_id');
+		$comment->parent_id = $reg->input('parent_id');
+		$comment->save();
+		
     }
 
     /**

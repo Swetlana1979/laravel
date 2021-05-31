@@ -17,6 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/about', function () {
+    return 'About page';
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/index', [App\Http\Controllers\CommentsController::class, 'index'])->name('index');
+
+
+Route::get('index/{id}','CommentsController@index')->name('user-comments');
+
+//Route::resource('user', 'CommentsController');
