@@ -17,6 +17,10 @@
 						@if(!empty($comments))
 							@foreach ($comments as $item)
 								<p>{{ $item->description }}</p>
+									@if($item->autor_id==$id)
+										<button>редактировать</button>
+									    <button>удалить</button>
+									@endif
 							@endforeach
 					    
 					    @endif

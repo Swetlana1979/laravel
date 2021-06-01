@@ -15,7 +15,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $id= auth()->user()->id;
+        $id = auth()->user()->id;
 		$comm = new Comments();
 		$comments=$comm->all()->where('user_id','=',$id);
 		
