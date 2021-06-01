@@ -18,8 +18,10 @@
 							@foreach ($comments as $item)
 								<p>{{ $item->description }}</p>
 									@if($item->autor_id==$id)
-										<button>редактировать</button>
-									    <button>удалить</button>
+										<a href=''>редактировать</a>
+									    <a href=''>удалить</a>
+									@else
+										<a href=''>Ответить</a>
 									@endif
 							@endforeach
 					    
