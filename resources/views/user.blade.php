@@ -9,8 +9,16 @@
 
                 <div class="card-body">
 					<div class="alert alert-success" role="alert">
-                        @if(!empty($comments))
-						<p>{{ $comments->description }}</p>
+                        @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                        @endif
+						@if(!empty($comments))
+							@foreach ($comments as $item)
+								<p>{{ $item->description }}</p>
+							@endforeach
+					    
 					    @endif
 						
 					</div>

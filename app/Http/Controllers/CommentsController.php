@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Comments;
 class CommentsController extends Controller
 {
@@ -12,11 +13,13 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $comm = new Comments();
-		$comments=$comm->find($id);
-		return view('user')->with('comments', $comments);
+        $id= auth()->user()->id;
+		$comm = new Comments();
+		$comments=$comm->all()->where('user_id','=',$id);
+		
+		return view('user',['comments'=>$comments, 'id'=>$id]);
     }
 
     /**
