@@ -9,8 +9,9 @@
 
                 <div class="card-body">
 					<div class="alert alert-success" role="alert">
-                        
-						<p>{{ route(user-comments,$comments->description) }}</p>
+                        @if(!empty($comments))
+						<p>{{ $comments->description }}</p>
+					    @endif
 						
 					</div>
                       
