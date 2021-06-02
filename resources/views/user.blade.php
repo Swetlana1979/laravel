@@ -16,12 +16,18 @@
                         @endif
 						@if(!empty($comments))
 							@foreach ($comments as $item)
-								<p>{{ $item->description }}</p>
+								
+								 <p name='{{$item->id}}'>{{ $item->description }}
+									
+							     </p>
 									@if($item->autor_id==$id)
-										<a href=''>редактировать</a>
-									    <a href=''>удалить</a>
+										<a href=''>Редактировать</a>
+									    <a href=''>Удалить</a>
 									@else
 										<a href=''>Ответить</a>
+									@endif
+									@if($item->parent_id!=0)
+										<a href='{{ $item->parent_id }}'>Ответ на комментарий</a>
 									@endif
 							@endforeach
 					    
