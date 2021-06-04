@@ -15,22 +15,44 @@
                         </div>
                         @endif
 						@if(!empty($comments))
+							@php 
+								$comm = $comments->toArray();
+								$array = array();
+							@endphp
 							@foreach ($comments as $item)
+							    @if($item -> parent_id == 0)
+								<p name='{{$item->id}}'>
+								{{ $item->description }}
 								
-								 <p name='{{$item->id}}'>{{ $item->description }}
-									
-							     </p>
-									@if($item->autor_id==$id)
-										<a href=''>Редактировать</a>
-									    <a href=''>Удалить</a>
-									@else
-										<a href=''>Ответить</a>
+								@if($item->autor_id==$id)
+									<br><a href=''>Редактировать</a>
+									<a href=''>Удалить</a>
+								@else
+									<br><a href=''>Ответить</a>
+								@endif
+								@endif
+								@php 
+									$par=$item->id; 
+									unset($comm[$par]); 
+								@endphp
+								@foreach ($comm as $it)
+									@if($it['parent_id']==$par )
+										<p>{{ $it['description'] }}
+										@php $n=$it['id']; 
+											$array[]=$n;
+										@endphp
+										@if($it['autor_id']==$id)
+										<br><a href=''>Редактировать</a>
+										<a href=''>Удалить</a>
+										@else
+											<br><a href=''>Ответить</a>
+										@endif
+										</p>
 									@endif
-									@if($item->parent_id!=0)
-										<a href='{{ $item->parent_id }}'>Ответ на комментарий</a>
-									@endif
+								@endforeach
 							@endforeach
-					    
+							
+					    </p>
 					    @endif
 						
 					</div>
