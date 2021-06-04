@@ -56,7 +56,7 @@
 							
 					    </p>
 					    @endif
-						<form action="{{ route('comments-insert') }}" method='GET'>
+						<form action="{{ route('comments-insert') }}" method='POST'>
 						<textarea id='description' name='description'></textarea> 
 						<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 						<input type='submit' value="Добавить комментарий">
