@@ -95,9 +95,19 @@ class CommentsController extends Controller
     {
         //
     }
+	public function insert(){
+		$post = new Post;
+
+$post->title = 'Laravel - замечателен!';
+$post->author = 'Джейсон';
+$post->body = 'Laravel очень удобен - используйте его, если вы ещё этого не делаете!';
+
+$post->save();
+	}
 	public function delete($id)
     {
         $comm = new Comments();
 		$comments = $comm->find($id)->delete();
+		return redirect()->route('home');
     }
 }

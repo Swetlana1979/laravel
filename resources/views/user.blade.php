@@ -26,7 +26,7 @@
 								
 									@if($item->autor_id==$id)
 										<br><a href='{{ $item->id }}'>Редактировать</a>
-										<a href='delete/{{ $item->id }}'>Удалить</a>
+										<a href="{{ route('comments-delete', $item->id) }}">Удалить</a>
 									@else
 										<br><a href=''>Ответить</a>
 									@endif
@@ -54,7 +54,7 @@
 							
 					    </p>
 					    @endif
-						<p> <textarea></textarea> <a href=''><button>Добавить комментарий</button></a><p/>
+						<p> <textarea></textarea> <a href="{{ route('comments-insert') }}"><button>Добавить комментарий</button></a><p/>
 						
 					</div>
                       

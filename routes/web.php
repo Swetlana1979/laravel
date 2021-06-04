@@ -23,14 +23,15 @@ Route::get('/about', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/index', [App\Http\Controllers\CommentsController::class, 'index'])->name('index');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\CommentsController::class, 'index'])->name('home');
 
 
 
 Route::get('index/','App\Http\Controllers\CommentsController@index')->name('user-comments');
 Route::get('index/{id}','App\Http\Controllers\CommentsController@index')->name('user-comments');
 Route::get('update/{id}','App\Http\Controllers\CommentsController@update')->name('user-comments-update');
-Route::get('delete/{id}','App\Http\Controllers\CommentsController@delete')->name('user-comments-delete');
+Route::get('del/{id}','App\Http\Controllers\CommentsController@delete')->name('comments-delete');
+Route::post('insert/','App\Http\Controllers\CommentsController@insert')->name('comments-insert');
 
 //Route::resource('user', 'CommentsController');
