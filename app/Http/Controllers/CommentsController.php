@@ -95,4 +95,9 @@ class CommentsController extends Controller
     {
         //
     }
+	public function delete($id)
+    {
+        $comm = new Comments();
+		$comments = $comm->find($id)->delete();
+    }
 }

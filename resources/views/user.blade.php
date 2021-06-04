@@ -24,12 +24,12 @@
 								<p name='{{$item->id}}'>
 								{{ $item->description }}
 								
-								@if($item->autor_id==$id)
-									<br><a href=''>Редактировать</a>
-									<a href=''>Удалить</a>
-								@else
-									<br><a href=''>Ответить</a>
-								@endif
+									@if($item->autor_id==$id)
+										<br><a href='{{ $item->id }}'>Редактировать</a>
+										<a href='delete/{{ $item->id }}'>Удалить</a>
+									@else
+										<br><a href=''>Ответить</a>
+									@endif
 								@endif
 								@php 
 									$par=$item->id; 
@@ -37,15 +37,15 @@
 								@endphp
 								@foreach ($comm as $it)
 									@if($it['parent_id']==$par )
-										<p>{{ $it['description'] }}
+										<p> &nbsp &nbsp  {{ $it['description'] }}
 										@php $n=$it['id']; 
 											$array[]=$n;
 										@endphp
 										@if($it['autor_id']==$id)
-										<br><a href=''>Редактировать</a>
-										<a href=''>Удалить</a>
+										<br>&nbsp &nbsp <a href='{{ $item->id }}'>Редактировать</a>
+										<a href='{{ $item->id }}'>Удалить</a>
 										@else
-											<br><a href=''>Ответить</a>
+											<br>&nbsp &nbsp <a href='{{ $item->id }}'>Ответить</a>
 										@endif
 										</p>
 									@endif
@@ -54,6 +54,7 @@
 							
 					    </p>
 					    @endif
+						<p> <textarea></textarea> <a href=''><button>Добавить комментарий</button></a><p/>
 						
 					</div>
                       
