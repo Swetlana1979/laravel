@@ -21,6 +21,7 @@
 							@endphp
 							@foreach ($comments as $item)
 							    @if($item -> parent_id == 0)
+								<p>{{$users->find($item->autor_id)->name}}</p>
 								<p name='{{$item->id}}'>
 								{{ $item->description }}
 								
@@ -37,6 +38,7 @@
 								@endphp
 								@foreach ($comm as $it)
 									@if($it['parent_id']==$par )
+										<p>{{$users->find($it['autor_id'])->name}}</p>
 										<p> &nbsp &nbsp  {{ $it['description'] }}
 										@php $n=$it['id']; 
 											$array[]=$n;
@@ -54,7 +56,7 @@
 							
 					    </p>
 					    @endif
-						<p> <textarea></textarea> <a href="{{ route('comments-insert') }}"><button>Добавить комментарий</button></a><p/>
+						<form action="{{ route('comments-insert') }}"><textarea></textarea> <input type='submit' value="Добавить комментарий"><form/>
 						
 					</div>
                       

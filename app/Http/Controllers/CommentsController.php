@@ -18,8 +18,10 @@ class CommentsController extends Controller
         $id = auth()->user()->id;
 		$comm = new Comments();
 		$comments=$comm->all()->where('user_id','=',$id);
+		$user = new User();
+		$users=$user->all();
 		
-		return view('user',['comments'=>$comments, 'id'=>$id]);
+		return view('home',['comments'=>$comments,'users'=>$users, 'id'=>$id]);
     }
 
     /**
@@ -95,13 +97,13 @@ class CommentsController extends Controller
     {
         //
     }
-	public function insert(){
+	public function insert(Request $req){
 		$post = new Post;
 
-$post->title = 'Laravel - замечателен!';
-$post->author = 'Джейсон';
-$post->body = 'Laravel очень удобен - используйте его, если вы ещё этого не делаете!';
-
+$post->description = $reg->input('description');
+$post->user_id = auth()->user()->id;
+$post->autor_id  = auth()->user()->id;
+$post->parent_id = 0;
 $post->save();
 	}
 	public function delete($id)
