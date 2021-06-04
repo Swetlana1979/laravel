@@ -21,7 +21,7 @@
 							@endphp
 							@foreach ($comments as $item)
 							    @if($item -> parent_id == 0)
-								<p>{{$users->find($item->autor_id)->name}}</p>
+								<p>{{$users->find($item->autor_id)->name }}{{':'}}</p>
 								<p name='{{$item->id}}'>
 								{{ $item->description }}
 								
@@ -56,9 +56,19 @@
 							
 					    </p>
 					    @endif
-						<form action="{{ route('comments-insert') }}"><textarea></textarea> <input type='submit' value="Добавить комментарий"><form/>
-						
-					</div>
+						<form action="{{ route('comments-insert') }}" method='GET'>
+						<textarea id='description' name='description'></textarea> 
+						<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+						<input type='submit' value="Добавить комментарий">
+						<form/>
+						</div>
+						<div class='users'>
+						{{ 'Список пользователей:' }}
+						@foreach($users as $user)
+						<p><a href='{{$user->id}}'>{{$user->name}}</a></p>
+						@endforeach
+						</div>
+					
                       
                 </div>
             </div>

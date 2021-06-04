@@ -98,13 +98,14 @@ class CommentsController extends Controller
         //
     }
 	public function insert(Request $req){
-		$post = new Post;
-
-$post->description = $reg->input('description');
-$post->user_id = auth()->user()->id;
-$post->autor_id  = auth()->user()->id;
-$post->parent_id = 0;
-$post->save();
+		//$post=new Post();
+		$comm = new Comments();
+		$comm->description = $req->input('description');
+		$comm->user_id = auth()->user()->id;
+		$comm->autor_id  = auth()->user()->id;
+		$comm->parent_id = 0;
+		$comm->save();
+		return redirect()->route('home');
 	}
 	public function delete($id)
     {

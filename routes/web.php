@@ -29,9 +29,9 @@ Route::get('/home', [App\Http\Controllers\CommentsController::class, 'index'])->
 
 
 Route::get('index/','App\Http\Controllers\CommentsController@index')->name('user-comments');
-Route::get('index/{id}','App\Http\Controllers\CommentsController@index')->name('user-comments');
+Route::get('index/{id}','App\Http\Controllers\CommentsController@index')->name('user-comments-id');
 Route::get('update/{id}','App\Http\Controllers\CommentsController@update')->name('user-comments-update');
 Route::get('del/{id}','App\Http\Controllers\CommentsController@delete')->name('comments-delete');
-Route::post('insert/','App\Http\Controllers\CommentsController@insert')->name('comments-insert');
+Route::post('/insert','App\Http\Controllers\CommentsController@insert')->name('comments-insert');
 
 //Route::resource('user', 'CommentsController');
