@@ -97,11 +97,11 @@ class CommentsController extends Controller
     {
         //
     }
-	public function insert(Request $req){
-		//$post=new Post();
+	public function insert($user_id=0, Request $req){
+		
 		$comm = new Comments();
 		$comm->description = $req->input('description');
-		$comm->user_id = auth()->user()->id;
+		$comm->user_id =($user_id==0)? auth()->user()->id:$user_id;
 		$comm->autor_id  = auth()->user()->id;
 		$comm->parent_id = 0;
 		$comm->save();
