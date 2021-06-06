@@ -74,7 +74,7 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $req, $id, $user_id)
+   /* public function update(Request $req, $id, $user_id)
     {
         $comm = new Comments();
 		$comments = $comm->find($id_user);
