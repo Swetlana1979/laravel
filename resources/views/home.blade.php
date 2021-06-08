@@ -27,10 +27,10 @@
 								{{ $item->description }}
 								
 									@if($item->autor_id==$id)
-										<br><a href='{{ $item->id }}'>Редактировать</a>
+										<br><a href="{{ route('edit-comment', ['id'=>$item->id, 'user_id'=>$id, 'parent_id'=>$item->parent_id, 'description' => $item->description]) }}">Редактировать</a>
 										<a href="{{ route('comments-delete', $item->id) }}">Удалить</a>
 									@else
-										<br><a href="{{ route('reply-to-comment', ['id'=>$item->id, 'user_id'=>$id]) }}"> Ответить</a>
+										<br><a href="{{ route('reply-to-comment', ['parent_id'=>$item->id, 'user_id'=>$id]) }}"> Ответить</a>
 									@endif
 								@endif
 								@php 
@@ -45,7 +45,7 @@
 											$array[]=$n;
 										@endphp
 										@if($it['autor_id']==$id)
-										<br>&nbsp &nbsp <a href='{{ $item->id }}'>Редактировать</a>
+										<br>&nbsp &nbsp <a href="{{ route('edit-comment', ['id'=>$item->id, 'user_id'=>$id, 'parent_id'=>$item->parent_id, 'description' => $item->description]) }}">Редактировать</a>
 										<a href="{{ route('comments-delete', $item->id) }}">Удалить</a>
 										@else
 											<br>&nbsp &nbsp <a href="{{ route('reply-to-comment', ['id'=>$item->id, 'user_id'=>$id]) }}">Ответить</a>
