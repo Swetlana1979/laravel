@@ -14,6 +14,7 @@
                             {{ session('status') }}
                         </div>
                         @endif
+						
 						@if(!empty($comments))
 							@php 
 								$comm = $comments->toArray();
@@ -29,7 +30,7 @@
 										<br><a href='{{ $item->id }}'>Редактировать</a>
 										<a href="{{ route('comments-delete', $item->id) }}">Удалить</a>
 									@else
-										<br><a href=''>Ответить</a>
+										<br><a href="{{ route('reply-to-comment', ['id'=>$item->id, 'user_id'=>$id]) }}"> Ответить</a>
 									@endif
 								@endif
 								@php 
@@ -45,9 +46,9 @@
 										@endphp
 										@if($it['autor_id']==$id)
 										<br>&nbsp &nbsp <a href='{{ $item->id }}'>Редактировать</a>
-										<a href='{{ $item->id }}'>Удалить</a>
+										<a href="{{ route('comments-delete', $item->id) }}">Удалить</a>
 										@else
-											<br>&nbsp &nbsp <a href='{{ $item->id }}'>Ответить</a>
+											<br>&nbsp &nbsp <a href="{{ route('reply-to-comment', ['id'=>$item->id, 'user_id'=>$id]) }}">Ответить</a>
 										@endif
 										</p>
 									@endif

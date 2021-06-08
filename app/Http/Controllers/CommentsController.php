@@ -13,9 +13,9 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id=0)
     {
-        $id = auth()->user()->id;
+        $id = ($id==0)? auth()->user()->id:$id;
 		$comm = new Comments();
 		$comments=$comm->all()->where('user_id','=',$id);
 		$user = new User();
@@ -107,8 +107,28 @@ class CommentsController extends Controller
 		$comm->save();
 		return redirect()->route('home');
 	}
-	public function delete($id)
-    {
+	
+	public function cancell(){
+		return redirect()->route('home');
+	}
+	
+	public function replyToComment($id, $user_id){
+				
+		return view('addComments',['parent_id'=>$id, 'user_id'=>$user_id]);
+	}
+	
+	public function commentAdd(Request $req){
+		$comm = new Comments();
+		$comm->description = $req->input('description');
+		$comm->user_id = $req->input('user_id');
+		$comm->autor_id  = auth()->user()->id;
+		$comm->parent_id = $req->input('parent_id');
+		$comm->save();
+		return redirect()->route('home');
+	}
+	
+	public function delete($id){
+		
         $comm = new Comments();
 		$comments = $comm->find($id)->delete();
 		return redirect()->route('home');
