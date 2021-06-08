@@ -5,15 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                
-
-                <div class="card-body">
+				<div class="card-body">
 					<div class="alert alert-success" role="alert">
-                        @if (session('status'))
+					
+                       
+						
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {{ $users->find($id)->name }}
                         </div>
-                        @endif
+                        
 						
 						@if(!empty($comments))
 							@php 
@@ -27,10 +27,11 @@
 								{{ $item->description }}
 								
 									@if($item->autor_id==$id)
-										<br><a href="{{ route('edit-comment', ['id'=>$item->id, 'user_id'=>$id, 'parent_id'=>$item->parent_id, 'description' => $item->description]) }}">Редактировать</a>
+									
+										<br><a href="{{ route('edit-comment', ['id' => $item->id, 'user_id' => $item->user_id, 'parent_id'=>$item->parent_id, 'description' => $item->description]) }}">Редактировать</a>
 										<a href="{{ route('comments-delete', $item->id) }}">Удалить</a>
 									@else
-										<br><a href="{{ route('reply-to-comment', ['parent_id'=>$item->id, 'user_id'=>$id]) }}"> Ответить</a>
+										<br><a href="{{ route('reply-to-comment', ['parent_id'=>$item->id, 'user_id' => $item->user_id]) }}"> Ответить</a>
 									@endif
 								@endif
 								@php 
@@ -45,10 +46,12 @@
 											$array[]=$n;
 										@endphp
 										@if($it['autor_id']==$id)
-										<br>&nbsp &nbsp <a href="{{ route('edit-comment', ['id'=>$item->id, 'user_id'=>$id, 'parent_id'=>$item->parent_id, 'description' => $item->description]) }}">Редактировать</a>
+										
+										<br>&nbsp &nbsp <a href="{{ route('edit-comment', ['id'=>$it['id'], 'user_id'=>$it['user_id'], 'parent_id'=>$it['parent_id'], 'description' => $it['description']]) }}">Редактировать</a>
 										<a href="{{ route('comments-delete', $item->id) }}">Удалить</a>
 										@else
-											<br>&nbsp &nbsp <a href="{{ route('reply-to-comment', ['id'=>$item->id, 'user_id'=>$id]) }}">Ответить</a>
+										
+											<br>&nbsp &nbsp <a href="{{ route('reply-to-comment', ['parent_id'=>$it['id'], 'user_id' => $it['user_id'] ]) }}">Ответить</a>
 										@endif
 										</p>
 									@endif
@@ -66,7 +69,9 @@
 						<div class='users'>
 						{{ 'Список пользователей:' }}
 						@foreach($users as $user)
-						<p><a href='{{$user->id}}'>{{$user->name}}</a></p>
+							@if($user->id!=$id)
+								<p><a href="{{ route('user-comments-id' ,$user->id)}}">{{$user->name}}</a></p>
+							@endif
 						@endforeach
 						</div>
 					

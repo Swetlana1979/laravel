@@ -13,13 +13,14 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id=0)
+    public function index()
     {
-        $id = ($id==0)? auth()->user()->id:$id;
+        $id = auth()->user()->id;
 		$comm = new Comments();
 		$comments=$comm->all()->where('user_id','=',$id);
 		$user = new User();
 		$users=$user->all();
+		$name=$user->find($id)->name;
 		
 		return view('home',['comments'=>$comments,'users'=>$users, 'id'=>$id]);
     }
@@ -43,7 +44,7 @@ class CommentsController extends Controller
 	
 	public function replyToComment($parent_id, $user_id){
 				
-		return view('addComments',['parent_id'=>$id, 'user_id'=>$user_id]);
+		return view('addComments',['parent_id'=>$parent_id, 'user_id'=>$user_id]);
 	}
 	
 	public function commentAdd(Request $req){
@@ -56,13 +57,16 @@ class CommentsController extends Controller
 		return redirect()->route('home');
 	}
 	
-	public function editComment($id, $description){
-		return view('edit',['id'=>$id, 'description'=>$description]);
+	public function editComment($id, $description, $user_id, $parent_id){
+		return view('edit',['id'=>$id, 'user_id'=>$user_id, 'parent_id'=>$parent_id, 'description'=>$description]);
 	}
 	
 	public function editAdd(Request $req){
 		$comm = Comments::find($req->input('id'));
 		$comm->description = $req->input('description');
+		$comm->user_id = $req->input('user_id');
+		$comm->autor_id  = auth()->user()->id;
+		$comm->parent_id = $req->input('parent_id');
 		$comm->save();
 		return redirect()->route('home');
 	}

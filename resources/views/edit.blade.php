@@ -20,7 +20,8 @@
 						<input type="hidden" name="id" value="{{ $id }}">
 						<textarea id='description' name='description'>{{ $description }}</textarea> 
 						<input type="hidden" name="_token" value="{{ csrf_token() }}" />
-						
+						<input type="hidden" name="user_id" value="{{ $user_id }}">
+						<input type="hidden" name="parent_id" value="{{ $parent_id }}">
 						<input type='submit' value="Отправить">
 						<form/>
 						</div>
