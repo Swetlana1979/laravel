@@ -13,9 +13,9 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $id = auth()->user()->id;
+        $id = (!$id)?auth()->user()->id:$id;
 		$comm = new Comments();
 		$comments=$comm->all()->where('user_id','=',$id);
 		$user = new User();
