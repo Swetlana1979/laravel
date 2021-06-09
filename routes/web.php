@@ -27,7 +27,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\CommentsController::class, 'index'])->name('home');
 Route::get('/cancell', 'App\Http\Controllers\CommentsController@cancell')->name('add-comments-cancel');
 Route::get('index/','App\Http\Controllers\CommentsController@index')->name('user-comments');
-Route::get('index/{id}','App\Http\Controllers\CommentsController@index')->name('user-comments-id');
+Route::get('user/{id_user}','App\Http\Controllers\CommentsController@index_user')->name('user-comments-id');
 Route::get('reply/{parent_id}/{user_id}','App\Http\Controllers\CommentsController@replyToComment')->name('reply-to-comment');
 Route::post('reply/','App\Http\Controllers\CommentsController@commentAdd')->name('comments-add');
 Route::get('update/{id}/{description}/{user_id}/{parent_id}','App\Http\Controllers\CommentsController@editComment')->name('edit-comment');

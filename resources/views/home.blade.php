@@ -11,9 +11,11 @@
                        
 						
                         <div class="alert alert-success" role="alert">
-                            {{ $users->find($id)->name }}
+                            {{ $users->find($id_user)->name }}
                         </div>
-                        
+                        @if($id_user!=$id)
+							<a href="{{ route('home')}}">Мой профиль</a>
+						@endif
 						
 						@if(!empty($comments))
 							@php 
@@ -63,6 +65,7 @@
 						<form action="{{ route('comments-insert') }}" method='POST'>
 						<textarea id='description' name='description'></textarea> 
 						<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+						<input type="hidden" name="user_id" value="{{ $id_user }}" />
 						<input type='submit' value="Добавить комментарий">
 						<form/>
 						</div>

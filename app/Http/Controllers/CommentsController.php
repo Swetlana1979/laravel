@@ -13,28 +13,37 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
-    {
-        $id = (!$id)?auth()->user()->id:$id;
+    public function index() {
+        $id = auth()->user()->id;
 		$comm = new Comments();
 		$comments=$comm->all()->where('user_id','=',$id);
 		$user = new User();
 		$users=$user->all();
 		$name=$user->find($id)->name;
 		
-		return view('home',['comments'=>$comments,'users'=>$users, 'id'=>$id]);
+		return view('home',['comments'=>$comments,'users'=>$users, 'id'=>$id, 'id_user'=>$id]);
     }
 
-    
+    public function index_user($id_user){
+        $id = auth()->user()->id;
+		$comm = new Comments();
+		$comments=$comm->all()->where('user_id','=',$id_user);
+		$user = new User();
+		$users=$user->all();
+		$name=$user->find($id)->name;
+		
+		return view('home',['comments'=>$comments,'users'=>$users, 'id'=>$id, 'id_user'=>$id_user]);
+    }
    
-	public function insert($user_id=0, Request $req){
+	public function insert(Request $req){
 		
 		$comm = new Comments();
 		$comm->description = $req->input('description');
-		$comm->user_id =($user_id==0)? auth()->user()->id:$user_id;
+		$comm->user_id = $req->input('user_id');
 		$comm->autor_id  = auth()->user()->id;
 		$comm->parent_id = 0;
 		$comm->save();
+		
 		return redirect()->route('home');
 	}
 	
