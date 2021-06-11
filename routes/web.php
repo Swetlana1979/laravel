@@ -33,7 +33,7 @@ Route::post('reply/','App\Http\Controllers\CommentsController@commentAdd')->name
 Route::get('update/{id}/{description}/{user_id}/{parent_id}','App\Http\Controllers\CommentsController@editComment')->name('edit-comment');
 Route::post('update/','App\Http\Controllers\CommentsController@editAdd')->name('edit-add');
 //Route::get('update/{id}','App\Http\Controllers\CommentsController@update')->name('user-comments-update');
-Route::get('del/{id}','App\Http\Controllers\CommentsController@delete')->name('comments-delete');
+Route::get('del/{id}/{user_id}','App\Http\Controllers\CommentsController@delete')->name('comments-delete');
 Route::post('/insert','App\Http\Controllers\CommentsController@insert')->name('comments-insert');
 
 //Route::resource('user', 'CommentsController');

@@ -9,59 +9,46 @@
 					<div class="alert alert-success" role="alert">
 					
                        
+						@if($id_user!=$id)
+							<a href="{{ route('home')}}">Мой профиль</a>
+						@endif
 						
                         <div class="alert alert-success" role="alert">
                             {{ $users->find($id_user)->name }}
                         </div>
-                        @if($id_user!=$id)
-							<a href="{{ route('home')}}">Мой профиль</a>
-						@endif
-						
-						@if(!empty($comments))
-							@php 
-								$comm = $comments->toArray();
-								$array = array();
-							@endphp
-							@foreach ($comments as $item)
-							    @if($item -> parent_id == 0)
-								<p>{{$users->find($item->autor_id)->name }}{{':'}}</p>
-								<p name='{{$item->id}}'>
-								{{ $item->description }}
-								
-									@if($item->autor_id==$id)
+                        @php 
+							$comm = $comments->toArray();							
+						@endphp
+						@if(!empty($comm))
+							@foreach ($comm as $item)
+						       
+						       <p>{{$users->find($item['autor_id'])->name }}{{':'}}</p>
+							   @php $name='a'.$item['id'] @endphp
+								<p><a name="{{$name}}"> 
+								@if($item['parent_id']!= 0)
+									@php 
+										$href='a'.$item['parent_id'];
+										$id_comm=$item['parent_id'];
+										$des=$comments->find($id_comm)->description
+									@endphp
 									
-										<br><a href="{{ route('edit-comment', ['id' => $item->id, 'user_id' => $item->user_id, 'parent_id'=>$item->parent_id, 'description' => $item->description]) }}">Редактировать</a>
-										<a href="{{ route('comments-delete', $item->id) }}">Удалить</a>
+									{{'Ответ на:'}}<a href="#{{ $href }}">{{ mb_strimwidth($des, 0, 10, "...") }}</a><br>
+							   @endif
+								{{ $item['description'] }}</a>								
+									@if($item['autor_id']==$id)
+										<br><a href="{{ route('edit-comment', ['id' => $item['id'], 'user_id' => $item['user_id'], 'parent_id'=>$item['parent_id'], 'description' => $item['description']]) }}">Редактировать</a>
+										<a href="{{ route('comments-delete', $item['id'],$item['user_id']]) }}">Удалить</a>
 									@else
-										<br><a href="{{ route('reply-to-comment', ['parent_id'=>$item->id, 'user_id' => $item->user_id]) }}"> Ответить</a>
+										<br><a href="{{ route('reply-to-comment', ['parent_id'=>$item['id'], 'user_id' => $item['user_id']]) }}"> Ответить</a>
 									@endif
-								@endif
-								@php 
-									$par=$item->id; 
-									unset($comm[$par]); 
-								@endphp
-								@foreach ($comm as $it)
-									@if($it['parent_id']==$par )
-										<p>{{$users->find($it['autor_id'])->name}}</p>
-										<p> &nbsp &nbsp  {{ $it['description'] }}
-										@php $n=$it['id']; 
-											$array[]=$n;
-										@endphp
-										@if($it['autor_id']==$id)
-										
-										<br>&nbsp &nbsp <a href="{{ route('edit-comment', ['id'=>$it['id'], 'user_id'=>$it['user_id'], 'parent_id'=>$it['parent_id'], 'description' => $it['description']]) }}">Редактировать</a>
-										<a href="{{ route('comments-delete', $item->id) }}">Удалить</a>
-										@else
-										
-											<br>&nbsp &nbsp <a href="{{ route('reply-to-comment', ['parent_id'=>$it['id'], 'user_id' => $it['user_id'] ]) }}">Ответить</a>
-										@endif
-										</p>
-									@endif
+								</p>
+								
+								
+									
 								@endforeach
-							@endforeach
-							
-					    </p>
-					    @endif
+								
+							    
+							@endif
 						<form action="{{ route('comments-insert') }}" method='POST'>
 						<textarea id='description' name='description'></textarea> 
 						<input type="hidden" name="_token" value="{{ csrf_token() }}" />

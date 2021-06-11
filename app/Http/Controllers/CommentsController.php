@@ -39,12 +39,17 @@ class CommentsController extends Controller
 		
 		$comm = new Comments();
 		$comm->description = $req->input('description');
-		$comm->user_id = $req->input('user_id');
-		$comm->autor_id  = auth()->user()->id;
+		$user_id=$req->input('user_id');
+		$autor_id=auth()->user()->id;
+		$comm->user_id = $user_id;
+		$comm->autor_id  = $autor_id;
 		$comm->parent_id = 0;
 		$comm->save();
-		
-		return redirect()->route('home');
+		$address='home';
+		if($user_id!=$autor_id){
+			$address='user-comments-id';
+		}
+		return redirect()->route($address, $user_id);
 	}
 	
 	public function cancell(){
@@ -63,7 +68,11 @@ class CommentsController extends Controller
 		$comm->autor_id  = auth()->user()->id;
 		$comm->parent_id = $req->input('parent_id');
 		$comm->save();
-		return redirect()->route('home');
+		$address='home';
+		if($user_id!=$autor_id){
+			$address='user-comments-id';
+		}
+		return redirect()->route($address, $user_id);
 	}
 	
 	public function editComment($id, $description, $user_id, $parent_id){
@@ -77,13 +86,22 @@ class CommentsController extends Controller
 		$comm->autor_id  = auth()->user()->id;
 		$comm->parent_id = $req->input('parent_id');
 		$comm->save();
-		return redirect()->route('home');
+		$address='home';
+		if($user_id!=$autor_id){
+			$address='user-comments-id';
+		}
+		return redirect()->route($address, $user_id);
 	}
 	
-	public function delete($id){
+	public function delete($id,$user_id){
 		
-        $comm = new Comments();
+        $autor_id=auth()->user()->id;
+		$comm = new Comments();
 		$comments = $comm->find($id)->delete();
-		return redirect()->route('home');
+		$address='home';
+		if($user_id!=$autor_id){
+			$address='user-comments-id';
+		}
+		return redirect()->route($address, $user_id);
     }
 }
