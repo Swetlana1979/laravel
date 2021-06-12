@@ -64,8 +64,10 @@ class CommentsController extends Controller
 	public function commentAdd(Request $req){
 		$comm = new Comments();
 		$comm->description = $req->input('description');
-		$comm->user_id = $req->input('user_id');
-		$comm->autor_id  = auth()->user()->id;
+		$user_id = $req->input('user_id');
+		$comm->user_id = $user_id;
+		$autor_id = auth()->user()->id;
+		$comm->autor_id  = $autor_id;
 		$comm->parent_id = $req->input('parent_id');
 		$comm->save();
 		$address='home';
@@ -82,8 +84,10 @@ class CommentsController extends Controller
 	public function editAdd(Request $req){
 		$comm = Comments::find($req->input('id'));
 		$comm->description = $req->input('description');
-		$comm->user_id = $req->input('user_id');
-		$comm->autor_id  = auth()->user()->id;
+		$user_id=$req->input('user_id');
+		$comm->user_id = $user_id;
+		$autor_id=auth()->user()->id;
+		$comm->autor_id  = $autor_id;
 		$comm->parent_id = $req->input('parent_id');
 		$comm->save();
 		$address='home';

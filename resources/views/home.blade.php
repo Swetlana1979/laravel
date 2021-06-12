@@ -34,10 +34,11 @@
 									
 									{{'Ответ на:'}}<a href="#{{ $href }}">{{ mb_strimwidth($des, 0, 10, "...") }}</a><br>
 							   @endif
-								{{ $item['description'] }}</a>								
+								{{ $item['description'] }}</a>	
+																
 									@if($item['autor_id']==$id)
 										<br><a href="{{ route('edit-comment', ['id' => $item['id'], 'user_id' => $item['user_id'], 'parent_id'=>$item['parent_id'], 'description' => $item['description']]) }}">Редактировать</a>
-										<a href="{{ route('comments-delete', $item['id'],$item['user_id']]) }}">Удалить</a>
+										<a href="{{ route('comments-delete', ['id'=>$item['id'],'user_id'=>$item['user_id']]) }}">Удалить</a>
 									@else
 										<br><a href="{{ route('reply-to-comment', ['parent_id'=>$item['id'], 'user_id' => $item['user_id']]) }}"> Ответить</a>
 									@endif
